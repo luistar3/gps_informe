@@ -153,6 +153,17 @@ function fncRenderizarDataTable() {
         $("#idInputTelefono").val(rowData.telefono);
         $("#idInputIdPersona").val(rowData.idPersona);
 
+        $("#idInputIdPersonaNatural").attr("readonly", true);
+        $("#idInputIdPersonaNatural").empty();
+        $('#idInputIdPersonaNatural').append($('<option>', {
+            value: rowData.idPersonaNatural,
+            text: '[ '+rowData.personaNatural.dni+' ] '+ rowData.personaNatural.nombres+' '+rowData.personaNatural.apellidos
+        }));
+        $("#idInputIdPersonaNatural").select2({
+            dropdownParent: $("#idModalMostrarGuardarEditar"),
+            minimumResultsForSearch: -1
+        });
+
 
     });
 
