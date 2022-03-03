@@ -2,7 +2,7 @@
     <div class="page-wrapper">
         <div class="page-header">
             <div class="page-header-title">
-                <h4> Clientes </h4>
+                <h4> Usuarios </h4>
             </div>
             <div class="page-header-breadcrumb">
                 <ul class="breadcrumb-title">
@@ -11,9 +11,9 @@
                             <i class="icofont icofont-home"></i>
                         </a>
                     </li>
-                    <li class="breadcrumb-item"><a href="#!">Clientes</a>
+                    <li class="breadcrumb-item"><a href="#!">Usuario</a>
                     </li>
-                    <li class="breadcrumb-item"><a href="#!"> Gestionar Clientes </a>
+                    <li class="breadcrumb-item"><a href="/gps/src/private/views/usuario/usuarioView.php"> Gestionar Usuarios </a>
                     </li>
                 </ul>
             </div>
@@ -25,8 +25,8 @@
                     <!-- Basic Form Inputs card start -->
                     <div class="card">
                         <div class="card-header">
-                            <h5>Clientes</h5>
-                            <span>Módulo de gestion de <code>CLIENTES</code> Agregar - Actualizar</span>
+                            <h5>Usuarios</h5>
+                            <span>Módulo de gestion de <code>Usuarios</code> Agregar - Actualizar</span>
                             <div class="card-header-right">
                                 <i class="icofont icofont-rounded-down"></i>
                                 <i class="icofont icofont-refresh"></i>
@@ -41,7 +41,7 @@
 
                                         <div class="col-sm-12 col-xl-3">
                                             <label for=""></label>
-                                            <button class=" btn btn-info" id="idModalMostrarGuardarEditar">Crear Nuevo Registro</button>
+                                            <button class=" btn btn-info" id="idModalGuardarEditar">Crear Nuevo Registro</button>
                                         </div>
 
 
@@ -50,18 +50,18 @@
 
 
                                     <!-- <button id="button">Row count</button> -->
-                                    <table id="idListadoCliente" class="table table-striped table-bordered nowrap compact responsive">
+                                    <table id="idListadoUsuarios" class="table table-striped table-bordered nowrap compact responsive">
                                         <thead>
                                             <tr>
-                                                <th></th>
+                                                <th>N°</th>
                                                 <th>N° Documento</th>
                                                 <th>Nombre Cliente</th>
-                                                <th>Tipo Cliente</th>
-                                                <th>Ultimo Pago</th>
+                                                <th>Apellido Cliente</th>
+                                                <th>Usuario</th>
                                                 <th>Correo</th>
-                                                <th>Creado</th>
-                                                <th>Actualizado</th>
-                                                <th>Accciones</th>
+                                                <th>Rol</th>
+                                                <th>Estado [Usuario]</th>
+                                                <th>Acción</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -72,13 +72,12 @@
                                                 <th></th>
                                                 <th>N° Documento</th>
                                                 <th>Nombre Cliente</th>
-                                                <th>Tipo Cliente</th>
-                                                <th>Ultimo Pago</th>
+                                                <th>Apellido Cliente</th>
+                                                <th>Usuario</th>
                                                 <th>Correo</th>
-                                                <th>Creado</th>
-                                                <th>Actualizado</th>
-                                                <th>Accciones</th>
-                                            </tr>
+                                                <th>Rol</th>
+                                                <th>Estado [Usuario]</th>
+                                                <th>Acción</th>
                                         </tfoot>
                                     </table>
                                 </div>
@@ -93,49 +92,56 @@
 </div>
 
 
-<div class="md-modal md-effect-1" id="idModalGuardarEditar">
+<div class="md-modal md-effect-1" id="idModalMostrarGuardarEditar">
     <div class="md-content">
-        <h3>Formulario Cliente</h3>
+        <h3>Formulario Usuario</h3>
         <div>
-            <form action="#" id="idFormNuevoCliente">
+            <form action="#" id="idFormNuevoUsuario">
 
-                <input type="hidden" name="" id="idInputIdcliente" name="" class="form-control" value="0">
+                <input type="hidden" name="" id="idInputIdUsuario" name="" class="form-control" value="0">
                 <div class="form-group row  justify-content-center">
-                    <div class="col-sm-6" id="idDivPersonaNatural" >
+                    <div class="col-sm-6">
                         <small>PERSONA NATURAL</small>
                         <select name="idInputIdPersonaNatural" id="idInputIdPersonaNatural" class="form-control">
 
                         </select>
 
                     </div>
-                    <div class="col-sm-6 d-none" id="idDivPersonaJuridica">
-                        <small>PERSONA JURIDICA</small>
+                </div>
+                <hr>
+                <div class="form-group row">
 
-                        <select name="idInputIdPersonaJuridica" id="idInputIdPersonaJuridica" class="form-control">
+                    <div class="col-sm-4">
+                        <small>Usuario</small> <br>
+                        <input id="idUsuario" name="idUsuario" type="text" class="form-control">
+                    </div>
+
+                    <div class="col-sm-4">
+                        <small>Contraseña</small> <br>
+                        <input id="idContrasena" name="idContrasena" type="password" class="form-control">
+                    </div>
+                    <div class="col-sm-4">
+                    <small>Estado</small> <br>
+                          <select class="form-control" id="idEstadoUsuario" name="idEstadoUsuario" id="">
+                            <option value="1">Habilitado</option>
+                            <option value="0">Deshabilitado</option>
+                          </select>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="form-group row  justify-content-center">
+                    <div class="col-sm-6">
+                        <small>Rol del Usuario</small>
+                        <select name="idInputISelectRol" id="idInputISelectRol" name="idInputISelectRol" class="form-control">
 
                         </select>
+
                     </div>
                 </div>
+                <hr>
                 <div class="form-group row">
-                    <div class="col-sm-12   form-control form-control-center">
-                        
-                        <small>Tipo Persona</small> <br>
-                        
-                            <label>
-                                <input id="idRadioNatural" type="radio" value="natural" name="tipoPersona" checked>
-                                <i class="helper"></i>Natural
-                            </label>
-                            <label>
-                                <input id="idRadioJuridica" type="radio" value="juridica" name="tipoPersona" >
-                                <i class="helper"></i>Jurídico
-                            </label>
-                       
-                    </div>
-                    
-                </div>             
-
-                <div class="form-group row">
-                    <button type="button" class="btn btn-primary m-r-10" id="idBtnAgregarCliente">Agregar Cliente</button>
+                    <button type="button" class="btn btn-primary m-r-10" id="idBtnAgregarEditarUsuario">Agregar Usuario</button>
                     <button type="button" class="btn btn-default waves-effect md-close" data-dismiss="modal">Close</button>
                 </div>
             </form>

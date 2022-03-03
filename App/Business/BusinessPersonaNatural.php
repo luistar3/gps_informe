@@ -122,6 +122,65 @@ class BusinessPersonaNatural extends PersonaNatural
 		}
 	}
 
+	
+	public function fncListarRegistrosParaAgregarUsuarioBD()
+	{
+		$connection = new connection();
+		$connectionstatus = $connection->openConnection();
+		if ($connectionstatus) {
+
+			$sql = "					
+			SELECT
+			gpn.idPersona,
+			upper(gpn.nombres) as 'nombres',
+			upper(gpn.apellidos) as 'apellidos',
+			gpn.telefono,
+			gpn.dni,
+			upper(gpn.direccion) as 'direccion',
+			gpn.correo,
+			gpn.created_at,
+			gpn.updated_at
+			FROM
+			gps_persona_natural AS gpn
+			WHERE gpn.idPersona NOT IN (SELECT gu.idUsuario FROM gps_usuario AS gu )";
+
+			//$connectionstatus->prepare($sql);
+			//$arrayReturn = array();
+			$statement = $connectionstatus->prepare($sql);
+			$arrayReturn = array();
+			//$result = mysqli_query($connectionstatus, $sql);
+
+			if ($statement != false) {
+				$statement->execute();
+				while ($datos = $datos = $statement->fetch(PDO::FETCH_ASSOC)) {
+					$temp = new PersonaNatural;
+					$temp->idPersona		= $datos['idPersona'];
+					$temp->nombres		= $datos['nombres'];
+					$temp->apellidos	= $datos["apellidos"];
+					$temp->telefono		= $datos["telefono"];
+					$temp->dni			= $datos["dni"];
+					$temp->direccion	= $datos["direccion"];
+					$temp->correo		= $datos["correo"];
+					$temp->createdAt	= $datos["created_at"];
+					$temp->updatedAt	= $datos["updated_at"];
+					array_push($arrayReturn, $temp);
+					unset($temp);
+				}
+				return $arrayReturn;
+				$connection->closeConnection($connectionstatus);
+			} else {
+
+				return false;
+			}
+		} else {
+			unset($connectionstatus);
+			unset($connection);
+			return ('Tenemos un problema' . (mysqli_error($connectionstatus)));
+		}
+	}
+
+
+
 	public function fncObtenerRegistroDniBD($dni)
 	{
 		$connection = new connection();

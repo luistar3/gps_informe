@@ -8,7 +8,7 @@ class ContratoVehiculoController extends ContratoVehiculo
 {	
 	public function fncContratoVehiculoDetalleView($inputs){
 
-		$idUsuarioSet= 1;
+		$idUsuarioSet= $_SESSION['sesionIdUsuario'];
 		$clsModuloRolController = new ModuloRolController();
 		$menuModulosPermisos =  $clsModuloRolController->fncListarRegistrosPermisosMenu($idUsuarioSet);	
 		$moduloActual = 'CONTRATO';

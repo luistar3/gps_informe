@@ -30,7 +30,7 @@ class ContratoController extends Contrato
     public function fncIndexView()
     {
 	
-		$idUsuarioSet= 1;
+		$idUsuarioSet= $_SESSION['sesionIdUsuario'];
 		$clsModuloRolController = new ModuloRolController();
 		$menuModulosPermisos =  $clsModuloRolController->fncListarRegistrosPermisosMenu($idUsuarioSet);	
 		$moduloActual = 'CONTRATO';
@@ -61,7 +61,7 @@ class ContratoController extends Contrato
 	public function fncEditarContratoView($inputs)
     {
 	
-		$idUsuarioSet= 1;
+		$idUsuarioSet= $_SESSION['sesionIdUsuario'];
 		$clsModuloRolController = new ModuloRolController();
 		$menuModulosPermisos =  $clsModuloRolController->fncListarRegistrosPermisosMenu($idUsuarioSet);	
 		$moduloActual = 'CONTRATO';

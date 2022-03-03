@@ -10,7 +10,7 @@ class PersonaNaturalController extends PersonaNatural
 	public function fncNaturalJuridicaView()
 	{
 
-		$idUsuarioSet = 1;
+		$idUsuarioSet = $_SESSION['sesionIdUsuario'];
 		$clsModuloRolController = new ModuloRolController();
 		$menuModulosPermisos =  $clsModuloRolController->fncListarRegistrosPermisosMenu($idUsuarioSet);
 		$moduloActual = 'PERSONA';
@@ -46,6 +46,32 @@ class PersonaNaturalController extends PersonaNatural
 		}
 		return $dtReturn;
 	}
+	public function fncListarRegistrosParaAgregarUsuario($id = -1)
+	{
+		$dtReturn = array();
+		$personaNatural = new BusinessPersonaNatural();
+		$dtListado = $personaNatural->fncListarRegistrosParaAgregarUsuarioBD($id);
+		if (fncGeneralValidarDataArray($dtListado)) {
+			foreach ($dtListado as $listado) {
+				$model = array();
+				$model['idPersona'] = $listado->idPersona;
+				$model['nombres'] 	= strtoupper($listado->nombres);
+				$model['apellidos'] = $listado->apellidos;
+				$model['telefono'] 	= $listado->telefono;
+				$model['apellidos'] = strtoupper($listado->apellidos);
+				$model['direccion'] = $listado->direccion;
+				$model['dni'] 		= $listado->dni;
+				$model['correo'] 	= $listado->correo;
+				$model['createdAt'] = $listado->createdAt;
+				$model['updatedAt'] = $listado->updatedAt;
+				array_push($dtReturn, $model);
+				unset($model);
+			}
+		}
+		return $dtReturn;
+	}
+
+	
 	public function fncListarRegistrosParaCliente()
 	{
 		$dtReturn = array();

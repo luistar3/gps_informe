@@ -19,10 +19,11 @@ class UsuarioController extends Usuario
 		include('../../../../resources/views/includes/appHead.php');
 		include('../../../../resources/views/content/usuario/index.php');
 		include('../../../../resources/views/includes/appFooter.php');
+		echo ('<script type="text/javascript" src="../../../../resources/js/usuario/scriptUsuario.js"></script>');
 	}
 	public function fncIndexViewPanel()
 	{
-		$idUsuarioSet = 1;
+		$idUsuarioSet = $_SESSION['sesionIdUsuario'];
 		$clsModuloRolController = new ModuloRolController();
 		$menuModulosPermisos =  $clsModuloRolController->fncListarRegistrosPermisosMenu($_SESSION['sesionIdUsuario']);
 		$moduloActual = 'INICIO';
@@ -58,6 +59,34 @@ class UsuarioController extends Usuario
 				$model['rol'] 	=  array_shift($clsRol->fncListarRegistros($listado->idRol));
 				$model['usuario'] = $listado->usuario;
 				$model['contrasena'] = $listado->contrasena;
+				$model['estado'] 	= $listado->estado;
+				$model['createdAt'] = $listado->createdAt;
+				$model['updatedAt'] = $listado->updatedAt;
+				array_push($dtReturn, $model);
+				unset($model);
+			}
+		}
+		return $dtReturn;
+	}
+
+	public function fncListarRegistrosAll($id = -1)
+	{
+		$dtReturn = array();
+		$usuario = new BusinessUsuario();
+		$dtListado = $usuario->fncListarRegistrosAllBD($id);
+		$clsPersonaNatural = new PersonaNaturalController();
+		$clsRol = new RolController();
+
+		if (fncGeneralValidarDataArray($dtListado)) {
+			foreach ($dtListado as $listado) {
+				$model = array();
+				$model['idUsuario'] = $listado->idUsuario;
+				$model['idPersonaNatural'] = $listado->idPersona;
+				$model['personaNatural'] = array_shift($clsPersonaNatural->fncListarRegistros($listado->idPersona));
+				$model['idRol'] 	= $listado->idRol;
+				$model['rol'] 	=  array_shift($clsRol->fncListarRegistros($listado->idRol));
+				$model['usuario'] = $listado->usuario;
+				//$model['contrasena'] = $listado->contrasena;
 				$model['estado'] 	= $listado->estado;
 				$model['createdAt'] = $listado->createdAt;
 				$model['updatedAt'] = $listado->updatedAt;

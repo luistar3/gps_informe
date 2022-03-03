@@ -10,11 +10,11 @@ class VehiculoController extends Vehiculo
 	public function fncIndexView()
     {
 	
-		$idUsuarioSet= 1;
+		$idUsuarioSet= $_SESSION['sesionIdUsuario'];
 		$clsModuloRolController = new ModuloRolController();
 		$menuModulosPermisos =  $clsModuloRolController->fncListarRegistrosPermisosMenu($idUsuarioSet);	
 		$moduloActual = 'VEHICULO';
-		$menuActivo		= 'GESTION';
+		$menuActivo		= 'GESTIONVEHICULO';
 		
         include('../../../../resources/views/includes/appHead.php');
         include('../../../../resources/views/content/vehiculo/index.php');
@@ -26,11 +26,11 @@ class VehiculoController extends Vehiculo
 	public function fncReporteView()
     {
 	
-		$idUsuarioSet= 1;
+		$idUsuarioSet= $_SESSION['sesionIdUsuario'];
 		$clsModuloRolController = new ModuloRolController();
 		$menuModulosPermisos =  $clsModuloRolController->fncListarRegistrosPermisosMenu($idUsuarioSet);	
 		$moduloActual = 'VEHICULO';
-		$menuActivo		= 'REPORTE';
+		$menuActivo		= 'REPORTEVEHICULO';
 		
         include('../../../../resources/views/includes/appHead.php');
         include('../../../../resources/views/content/vehiculo/reporte.php');

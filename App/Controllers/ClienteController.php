@@ -60,7 +60,7 @@ class ClienteController extends Cliente
 	public function fncIndexView()
     {
 	
-		$idUsuarioSet= 1;
+		$idUsuarioSet= $_SESSION['sesionIdUsuario'];
 		$clsModuloRolController = new ModuloRolController();
 		$menuModulosPermisos =  $clsModuloRolController->fncListarRegistrosPermisosMenu($idUsuarioSet);	
 		$moduloActual = 'CLIENTE';

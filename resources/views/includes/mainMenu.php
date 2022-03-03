@@ -48,7 +48,7 @@
         <?php } ?>
 
         <?php if (in_array("VEHICULO", $menuModulosPermisos)) { ?>
-            <?php $menu = array('GESTION', 'REPORTE'); ?>
+            <?php $menu = array('GESTIONVEHICULO', 'REPORTEVEHICULO'); ?>
             <li class="nav-item <?php if (in_array($menuActivo, $menu)) {
                                     echo ('has-class');
                                 } ?> ">
@@ -56,11 +56,11 @@
                     <i class="ti-car"></i>
                     <span data-i18n="nav.dash.main">Vehículos</span>
                 </a>
-                <ul class="tree-1 <?php if ($menuActivo == 'GESTION') echo ('has-class'); ?>">
-                    <li class=" <?php if ($menuActivo == 'GESTION') echo ('has-class'); ?>">
+                <ul class="tree-1 <?php if (in_array($menuActivo, $menu)) echo ('has-class'); ?>">
+                    <li class=" <?php if ($menuActivo == 'GESTIONVEHICULO') echo ('has-class'); ?>">
                         <a href="/gps/src/private/views/vehiculo/vehiculoView.php" data-i18n="nav.dash.default"> Gestionar vehículos </a>
                     </li>
-                    <li class=" <?php if ($menuActivo == 'REPORTE') echo ('has-class'); ?>">
+                    <li class=" <?php if ($menuActivo == 'REPORTEVEHICULO') echo ('has-class'); ?>">
                         <a href="/gps/src/private/views/vehiculo/reporteView.php" data-i18n="nav.dash.default"> Reporte vehículos </a>
                     </li>
 
@@ -77,15 +77,15 @@
                     <i class="ti-id-badge"></i>
                     <span data-i18n="nav.dash.main">Clientes</span>
                 </a>
-                <ul class="tree-1 <?php if ($menuActivo == 'GESTION') echo ('has-class'); ?>">
-                    <li class=" <?php if ($menuActivo == 'GESTION') echo ('has-class'); ?>">
+                <ul class="tree-1 <?php if (in_array($menuActivo, $menu)) echo ('has-class'); ?>">
+                    <li class=" <?php if ($menuActivo == 'GESTIONCLIENTE') echo ('has-class'); ?>">
                         <a href="/gps/src/private/views/cliente/clienteView.php" data-i18n="nav.dash.default"> Gestionar Clientes </a>
                     </li>                  
                 </ul>
             </li>
         <?php } ?>
         <?php if (in_array("PERSONA", $menuModulosPermisos)) { ?>
-            <?php $menu = array('GESTION', 'REPORTE', 'PERSONANATURALJURIDICA'); ?>
+            <?php $menu = array('GESTIONPERSONA', 'REPORTEPERSONA', 'PERSONANATURALJURIDICA'); ?>
             <li class="nav-item <?php if (in_array($menuActivo, $menu)) {
                                     echo ('has-class');
                                 } ?> ">
@@ -93,11 +93,11 @@
                     <i class="ti-id-badge"></i>
                     <span data-i18n="nav.dash.main">Personas</span>
                 </a>
-                <ul class="tree-1 <?php if ($menuActivo == 'PERSONANATURALJURIDICA') echo ('has-class'); ?>">
+                <ul class="tree-1 <?php if (in_array($menuActivo, $menu)) echo ('has-class'); ?>">
                     <li class=" <?php if ($menuActivo == 'PERSONANATURALJURIDICA') echo ('has-class'); ?>">
                         <a href="/gps/src/private/views/persona/naturalJuridicaView.php" data-i18n="nav.dash.default">Gestión P. Natural / Jurídica </a>
                     </li>
-                    <li class=" <?php if ($menuActivo == 'REPORTE') echo ('has-class'); ?>">
+                    <li class=" <?php if ($menuActivo == 'REPORTEPERSONA') echo ('has-class'); ?>">
                         <a href="/gps/src/private/views/persona/reporteView.php" data-i18n="nav.dash.default"> Reporte</a>
                     </li>
 
