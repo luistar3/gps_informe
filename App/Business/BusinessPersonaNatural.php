@@ -142,7 +142,7 @@ class BusinessPersonaNatural extends PersonaNatural
 			gpn.updated_at
 			FROM
 			gps_persona_natural AS gpn
-			WHERE gpn.idPersona NOT IN (SELECT gu.idUsuario FROM gps_usuario AS gu )";
+			WHERE gpn.idPersona NOT IN (SELECT gu.idPersona FROM gps_usuario AS gu )";
 
 			//$connectionstatus->prepare($sql);
 			//$arrayReturn = array();

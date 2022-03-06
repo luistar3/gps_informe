@@ -60,6 +60,115 @@ class BusinessUsuario extends Usuario
 		}
 	}
 
+	public function fncListarRegistrosPorIdPersonaBD($id = -1)
+	{
+		$connection = new connection();
+		$connectionstatus = $connection->openConnection();
+		if ($connectionstatus) {
+			$sql = "
+			SELECT
+				gu.idUsuario,
+				gu.idPersona,
+				gu.idRol,
+				gu.usuario,
+				gu.contrasena,
+				gu.estado,
+				gu.created_at,
+				gu.updated_at
+			FROM
+				gps_usuario AS gu
+				
+			WHERE  (:idPersona = -1 OR gu.idPersona = :idPersona)";
+
+			//$connectionstatus->prepare($sql);
+			//$arrayReturn = array();
+			$statement = $connectionstatus->prepare($sql);
+			$arrayReturn = array();
+			//$result = mysqli_query($connectionstatus, $sql);
+			if ($statement != false) {
+				$statement->bindParam('idPersona', $id);
+				//var_dump($statement);
+				$statement->execute();
+				while ($datos = $datos = $statement->fetch(PDO::FETCH_ASSOC)) {
+					$temp = new Usuario;
+					$temp->idUsuario	= $datos['idUsuario'];
+					$temp->idPersona	= $datos["idPersona"];
+					$temp->idRol		= $datos["idRol"];
+					$temp->usuario		= $datos["usuario"];
+					$temp->contrasena	= $datos["contrasena"];
+					$temp->estado		= $datos["estado"];
+					$temp->createdAt	= $datos["created_at"];
+					$temp->updatedAt	= $datos["updated_at"];
+					array_push($arrayReturn, $temp);
+					unset($temp);
+				}
+				return $arrayReturn;
+				$connection->closeConnection($connectionstatus);
+			} else {
+
+				return false;
+			}
+		} else {
+			unset($connectionstatus);
+			unset($connection);
+			return ('Tenemos un problema' . (mysqli_error($connectionstatus)));
+		}
+	}
+
+	public function fncListarRegistrosPorNombreUsuarioBD($nombre)
+	{
+		$connection = new connection();
+		$connectionstatus = $connection->openConnection();
+		if ($connectionstatus) {
+			$sql = "
+			SELECT
+				gu.idUsuario,
+				gu.idPersona,
+				gu.idRol,
+				gu.usuario,
+				gu.contrasena,
+				gu.estado,
+				gu.created_at,
+				gu.updated_at
+			FROM
+				gps_usuario AS gu
+				
+			WHERE  (gu.usuario = :usuario)";
+
+			//$connectionstatus->prepare($sql);
+			//$arrayReturn = array();
+			$statement = $connectionstatus->prepare($sql);
+			$arrayReturn = array();
+			//$result = mysqli_query($connectionstatus, $sql);
+			if ($statement != false) {
+				$statement->bindParam('usuario', $nombre);
+				//var_dump($statement);
+				$statement->execute();
+				while ($datos = $datos = $statement->fetch(PDO::FETCH_ASSOC)) {
+					$temp = new Usuario;
+					$temp->idUsuario	= $datos['idUsuario'];
+					$temp->idPersona	= $datos["idPersona"];
+					$temp->idRol		= $datos["idRol"];
+					$temp->usuario		= $datos["usuario"];
+					$temp->contrasena	= $datos["contrasena"];
+					$temp->estado		= $datos["estado"];
+					$temp->createdAt	= $datos["created_at"];
+					$temp->updatedAt	= $datos["updated_at"];
+					array_push($arrayReturn, $temp);
+					unset($temp);
+				}
+				return $arrayReturn;
+				$connection->closeConnection($connectionstatus);
+			} else {
+
+				return false;
+			}
+		} else {
+			unset($connectionstatus);
+			unset($connection);
+			return ('Tenemos un problema' . (mysqli_error($connectionstatus)));
+		}
+	}
 
 	public function fncListarRegistrosAllBD($id = -1)
 	{
@@ -289,5 +398,96 @@ class BusinessUsuario extends Usuario
 			unset($connection);
 			return false;
 		}
+	}
+
+	public function fncGuardarBD(Usuario $usuario)
+	{
+		$connection = new connection();
+		$connectionstatus = $connection->openConnection();
+		if ($connectionstatus) {
+			$sql = "
+			INSERT INTO gps_usuario
+			(
+				idPersona,
+				idRol,
+				usuario,
+				contrasena,
+				estado
+			)
+			VALUES
+			(
+				:idPersona,
+				:idRol,
+				:usuario,
+				:contrasena,
+				:estado
+			)
+			";
+
+			$statement = $connectionstatus->prepare($sql);
+
+			if ($statement != false) {
+				$statement->bindParam("idPersona", $usuario->idPersona);
+				$statement->bindParam("idRol", $usuario->idRol);
+				$statement->bindParam("usuario", $usuario->usuario);
+				$statement->bindParam("contrasena", $usuario->contrasena);
+				$statement->bindParam("estado", $usuario->estado);
+
+				$statement->execute();
+				$error = ($statement->errorInfo());
+				if ($error[1] != null) {
+					return false;
+				} else {
+					$connection->closeConnection($connectionstatus);
+					$id = $connectionstatus->lastInsertId();
+					$usuario->idPersona = $id;
+				}
+
+				return $usuario;
+			}
+		} else {
+			unset($connectionstatus);
+			unset($connection);
+			return false;
+		}
+	}
+
+	public function fncActualizarBD(Usuario $usuario)
+	{
+		$connection = new connection();
+		$connectionstatus = $connection->openConnection();
+		$bolReturn = false;
+		$queryContrasena = '';
+		if ($usuario->contrasena != null) {
+			$queryContrasena = 'contrasena = :contrasena,';
+		}
+		if ($connectionstatus) {
+			$sql = " 
+			UPDATE gps_usuario
+			SET					
+				idRol = :idRol,
+				{$queryContrasena}
+				estado = :estado,				
+				updated_at = now()
+			where idUsuario = :idUsuario
+			";
+			$statement = $connectionstatus->prepare($sql);
+
+			if ($statement != false) {
+				$statement->bindParam("idUsuario", $usuario->idUsuario);
+				$statement->bindParam("idRol", $usuario->idRol);
+				if ($usuario->contrasena != null) {
+					$statement->bindParam("contrasena", $usuario->contrasena);
+				}
+				$statement->bindParam("estado", $usuario->estado);
+				$statement->execute();
+				$error = ($statement->errorInfo());
+				$connection->closeConnection($connectionstatus);
+				if (($statement->rowCount()) != 0) {
+					return $usuario;
+				}
+			}
+		}
+		return $bolReturn;
 	}
 }

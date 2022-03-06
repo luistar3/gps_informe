@@ -34,6 +34,24 @@ if (
 	echo json_encode($arrayReturn, JSON_UNESCAPED_UNICODE);
 	exit;
 }
+if (
+	(
+		isset(
+			$input->contrasena
+		)
+	) 
+)
+{
+	if(strlen($input->contrasena) < 8){
+		http_response_code(400);
+		$arrayReturn["mensaje"]	= "Error en envío de datos password length";
+		$arrayReturn["error"]	= true;
+	
+		echo json_encode($arrayReturn, JSON_UNESCAPED_UNICODE);
+		exit;
+	}
+	
+}
 
 // if(isset($files->archivo) && fncValidarArchivo($files->archivo->name) == 0)
 // {

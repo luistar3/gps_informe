@@ -17,7 +17,7 @@ $(document).ready(function () {
     $(".md-close").click(function (e) {
         /* PERSONA NATURAL */
         maskOff(document.getElementsByClassName("main-body"));
-        $("#idBtnAgregarEditarPersona").html("Agregar Persona");
+        $("#idBtnAgregarEditarUsuario").html("Agregar Persona");
         var modal = document.getElementById("idModalMostrarGuardarEditar");
         classie.remove(modal, 'md-show')
         $("#idFormNuevoUsuario").validate().resetForm();
@@ -262,41 +262,39 @@ $('#idFormNuevoUsuario').validate({
         },
     },
     submitHandler: function (form) {
-        var nombres = $('#idInputNombres').val();
-        var apellidos = $('#idInputApellidos').val();
-        var telefono = $('#idInputTelefono').val();
-        var dni = $('#idInputDni').val();
-        var direccion = $('#idInputDireccion').val();
-        var correo = $('#idInputCorreo').val();
-        var idInputIdPersona = $('#idInputIdPersona').val();
+        var idPersona = $('#idInputIdPersonaNatural').val();
+        var idRol = $('#idInputISelectRol').val();
+        var usuario = $.trim($('#idUsuario').val());
+        var contrasena = $.trim($('#idContrasena').val());
+        var estado = $('#idEstadoUsuario').val();
+
+        var idInputIdPersona = $('#idInputIdUsuario').val();
 
         var data = {
-            'nombres': nombres,
-            'apellidos': apellidos,
-            'telefono': telefono,
-            'dni': dni,
-            'direccion': direccion,
-            'correo': correo,
+            'idPersona': idPersona,
+            'idRol': idRol,
+            'usuario': usuario,
+            'contrasena': contrasena,
+            'estado': estado
         }
         if (parseInt(idInputIdPersona) != 0) {
-            data["idPersona"] = idInputIdPersona;
+            data["idUsuario"] = idInputIdPersona;
         }
-
-        fncGuardarEditarPersona(data);
+        fncGuardarEditarUsuario(data);
         return false;
     }
 });
 
 
-function fncGuardarEditarPersona(data) {
+function fncGuardarEditarUsuario(data) {
 
     swal({
-        title: "Estas seguro?",
-        text: "Los dato seran enviados para registro de una Persona!",
+        title: "¿Estás seguro?",
+        text: "!Los dato seran enviados para registro de un Usuario!",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Si, enviar",
+        confirmButtonText: "Sí, enviar",
         cancelButtonText: "No, cancelar",
         closeOnConfirm: false,
         closeOnCancel: false
@@ -305,7 +303,7 @@ function fncGuardarEditarPersona(data) {
             if (isConfirm) {
                 $.ajax({
                     type: "POST",
-                    url: '/gps/src/private/PersonaGuardar.php',
+                    url: '/gps/src/private/UsuarioGuardar.php',
                     data: data,
                     success: function (response) {
                         var jsonData = JSON.parse(response);
@@ -313,9 +311,8 @@ function fncGuardarEditarPersona(data) {
                         if (jsonData.error == false) {
                             swal("Registrado", jsonData.mensaje, "success");
                             fncRenderizarDataTable();
-                            fncListarPersonasNaturales();
                             maskOff(document.getElementsByClassName("main-body"));
-                            var modal = document.getElementById("idModalGuardarEditar");
+                            var modal = document.getElementById("idModalMostrarGuardarEditar");
                             classie.remove(modal, 'md-show')
                         } else {
                             swal("Error", jsonData.mensaje, "error");
