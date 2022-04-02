@@ -34,6 +34,36 @@ class ModuloRolController extends ModuloRol
 		}
 		return $dtReturn;
 	}
+	public function fncListarRegistrosModuloRol($id = -1)
+	{
+		$dtReturn = array();
+        $moduloRol = new BusinessModuloRol();
+		$dtListado = $moduloRol->fncListarRegistrosModuloRolBD($id);
+
+		$clsRol = new RolController();
+		$clsModulo = new ModuloController();
+
+		if( fncGeneralValidarDataArray($dtListado) ){
+			foreach( $dtListado as $listado ){
+				$model = array();
+				$model['idModuloRol'] 	= $listado->idModuloRol;
+				$model['idModulo'] 		= $listado->idModulo;
+				$model['modulo'] 		=  array_shift($clsModulo->fncListarRegistros($listado->idModulo));
+				$model['idRol'] 		= $listado->idRol;
+				$model['rol'] 			=  array_shift($clsRol->fncListarRegistros($listado->idModulo));
+				$model['estado'] 		= $listado->estado;
+				$model['createdAt'] 	= $listado->createdAt;
+				$model['updatedAt'] 	= $listado->updatedAt;
+					
+				array_push($dtReturn, $model);
+				unset($model);
+			}
+		}
+		return $dtReturn;
+	}
+
+	
+
 	public function fncListarRegistrosPermisosMenu($id = -1)
 	{
 		$dtReturn = array();

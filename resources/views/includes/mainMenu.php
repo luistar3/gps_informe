@@ -105,7 +105,7 @@
             </li>
         <?php } ?>
         <?php if (in_array("USUARIO", $menuModulosPermisos)) { ?>
-            <?php $menu = array('MODULO_USUARIO_GESTION'); ?>
+            <?php $menu = array('MODULO_USUARIO_GESTION','MODULO_USUARIO_PERMISOS'); ?>
             <li class="nav-item <?php if (in_array($menuActivo, $menu)) {
                                     echo ('has-class');
                                 } ?> ">
@@ -118,6 +118,11 @@
                         <a href="/gps/src/private/views/usuario/usuarioView.php" data-i18n="nav.dash.default">Gestión de Usuarios</a>
                     </li>
 
+                </ul>
+                <ul class="tree-1 <?php if (in_array($menuActivo, $menu)) echo ('has-class'); ?>">
+                    <li class=" <?php if ($menuActivo == 'MODULO_USUARIO_PERMISOS') echo ('has-class'); ?>">
+                        <a href="/gps/src/private/views/usuario/usuarioPermisosView.php" data-i18n="nav.dash.default">Gestión de Permisos</a>
+                    </li>
                 </ul>
             </li>
         <?php } ?>

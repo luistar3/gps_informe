@@ -21,6 +21,17 @@ class UsuarioController extends Usuario
 		include('../../../../resources/views/includes/appFooter.php');
 		echo ('<script type="text/javascript" src="../../../../resources/js/usuario/scriptUsuario.js"></script>');
 	}
+	public function fncPermisosView()
+	{
+		$clsModuloRolController = new ModuloRolController();
+		$menuModulosPermisos =  $clsModuloRolController->fncListarRegistrosPermisosMenu($_SESSION['sesionIdUsuario']);
+		$moduloActual = 'USUARIO';
+		$menuActivo		= 'MODULO_USUARIO_PERMISOS';
+		include('../../../../resources/views/includes/appHead.php');
+		include('../../../../resources/views/content/usuario/permisos.php');
+		include('../../../../resources/views/includes/appFooter.php');
+		echo ('<script type="text/javascript" src="../../../../resources/js/usuario/scriptUsuarioPermisos.js"></script>');
+	}
 	public function fncIndexViewPanel()
 	{
 		$idUsuarioSet = $_SESSION['sesionIdUsuario'];

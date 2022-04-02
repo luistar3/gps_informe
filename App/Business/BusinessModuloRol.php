@@ -112,4 +112,55 @@ class BusinessModuloRol extends ModuloRol
 		}
 	}
 
+	public function fncListarRegistrosModuloRolBD($id = -1)
+	{
+		$connection = new connection();
+		$connectionstatus = $connection->openConnection();
+		if ($connectionstatus) {
+			$sql = "
+			SELECT
+				gmr.idModuloRol,
+				gmr.idModulo,
+				gmr.idRol,
+				gmr.estado,
+				gmr.created_at,
+				gmr.updated_at		
+			FROM
+				gps_modulo_rol AS gmr
+						
+			WHERE (:idRol = -1 OR gmr.idRol = :idRol)";
+		
+		//$connectionstatus->prepare($sql);
+		//$arrayReturn = array();
+		$statement = $connectionstatus->prepare($sql);
+		$arrayReturn = array();
+			//$result = mysqli_query($connectionstatus, $sql);
+			if ($statement != false){
+				$statement->bindParam('idRol', $id);
+				//var_dump($statement);
+				$statement->execute();
+				while ($datos = $datos = $statement->fetch(PDO::FETCH_ASSOC)) {
+					$temp = new ModuloRol;
+					$temp->idModuloRol	= $datos['idModuloRol'];
+					$temp->idModulo		= $datos["idModulo"];
+					$temp->idRol		= $datos["idRol"];
+					$temp->estado		= $datos["estado"];					
+					$temp->createdAt	= $datos["created_at"];	
+					$temp->updatedAt	= $datos["updated_at"];	
+					array_push($arrayReturn, $temp);
+					unset($temp);
+				}
+				return $arrayReturn;
+				$connection->closeConnection($connectionstatus);
+			} else {
+
+				return false;
+			}
+		} else {
+			unset($connectionstatus);
+			unset($connection);
+			return ('Tenemos un problema' . (mysqli_error($connectionstatus)));
+		}
+	}
+
 }

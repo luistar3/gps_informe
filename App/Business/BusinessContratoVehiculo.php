@@ -218,7 +218,7 @@ class BusinessContratoVehiculo extends ContratoVehiculo
 			FROM
 				gps_contrato_vehiculo AS gcv
 				INNER JOIN gps_vehiculo AS gvs
-						ON gv.idVehiculo = gcv.idVehiculo		          
+						ON gvs.idVehiculo = gcv.idVehiculo		          
 			WHERE gv.estado = 1 AND gvs.placa = gv.placa AND gcv.idContrato NOT IN ( :idContrato )
 				)AS otrosContratos,
 			gv.modelo,

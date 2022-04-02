@@ -67,7 +67,7 @@ function fncRenderizarDataTable() {
             {
                 "data": "idCliente",
                 render: function (data, type, row) {
-                    var btn = '<button id="idBtnEditarVehiculo" class="btn btn-mini btn-warning btn-round">Editar</button>';                   
+                    var btn = '<a  class="btn" href="/gps/src/private/views/persona/naturalJuridicaView.php" >Editar</a>';                   
                     return btn;
                 }
             }
