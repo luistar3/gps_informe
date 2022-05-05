@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 01-03-2022 a las 05:36:34
--- Versión del servidor: 10.4.21-MariaDB
+-- Tiempo de generación: 05-05-2022 a las 02:07:49
+-- Versión del servidor: 5.7.31
 -- Versión de PHP: 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -33,13 +33,13 @@ CREATE TABLE IF NOT EXISTS `gps_cliente` (
   `idPersona` bigint(20) DEFAULT NULL,
   `idJuridico` bigint(20) DEFAULT NULL,
   `ultimoPago` datetime DEFAULT NULL,
-  `estado` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estado` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`idCliente`),
   KEY `idPersona` (`idPersona`),
   KEY `idJuridico` (`idJuridico`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `gps_cliente`
@@ -56,7 +56,8 @@ INSERT INTO `gps_cliente` (`idCliente`, `idPersona`, `idJuridico`, `ultimoPago`,
 (22, 1, NULL, NULL, 1, '2021-11-06 20:51:49', '0000-00-00 00:00:00'),
 (23, 35, NULL, NULL, 1, '2021-12-29 04:56:35', '0000-00-00 00:00:00'),
 (37, 2, NULL, NULL, 1, '2022-01-15 19:09:13', '0000-00-00 00:00:00'),
-(38, 3, NULL, NULL, 1, '2022-01-15 19:09:30', '0000-00-00 00:00:00');
+(38, 3, NULL, NULL, 1, '2022-01-15 19:09:30', '0000-00-00 00:00:00'),
+(39, 4, NULL, NULL, 1, '2022-03-06 02:02:02', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -71,9 +72,9 @@ CREATE TABLE IF NOT EXISTS `gps_contrato` (
   `fechaInicio` date NOT NULL,
   `fechaFin` date NOT NULL,
   `mensualidad` decimal(10,0) NOT NULL,
-  `contrato` mediumtext COLLATE utf8mb4_spanish2_ci DEFAULT NULL,
-  `estado` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `contrato` mediumtext COLLATE utf8mb4_spanish2_ci,
+  `estado` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`idContrato`),
   KEY `idCliente` (`idCliente`)
@@ -130,8 +131,8 @@ CREATE TABLE IF NOT EXISTS `gps_contrato_vehiculo` (
   `frecuenciaPago` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `fechaInstalacion` date NOT NULL,
   `fechaTermino` date DEFAULT NULL,
-  `estado` int(1) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estado` int(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idContratoVehiculo`),
   KEY `idVehiculo` (`idVehiculo`),
@@ -185,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `gps_juridico` (
   `ruc` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `correo` varchar(255) COLLATE utf8mb4_spanish2_ci DEFAULT NULL,
   `idRepresentanteLegal` bigint(20) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`idJuridico`),
   KEY `idRepresentanteLegal` (`idRepresentanteLegal`)
@@ -217,7 +218,7 @@ DROP TABLE IF EXISTS `gps_marca_vehiculo`;
 CREATE TABLE IF NOT EXISTS `gps_marca_vehiculo` (
   `idMarcaVehiculo` bigint(20) NOT NULL AUTO_INCREMENT,
   `marca` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`idMarcaVehiculo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
@@ -268,11 +269,11 @@ CREATE TABLE IF NOT EXISTS `gps_modulo` (
   `idModulo` int(11) NOT NULL AUTO_INCREMENT,
   `modulo` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `descripcion` varchar(255) COLLATE utf8mb4_spanish2_ci DEFAULT NULL,
-  `estado` int(11) DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estado` int(11) DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`idModulo`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `gps_modulo`
@@ -286,7 +287,8 @@ INSERT INTO `gps_modulo` (`idModulo`, `modulo`, `descripcion`, `estado`, `create
 (5, 'VEHICULO', 'VEHICULO', 1, '2021-07-06 23:18:02', '0000-00-00 00:00:00'),
 (6, 'CLIENTE', 'CLIENTE', 1, '2021-12-19 02:46:59', '0000-00-00 00:00:00'),
 (7, 'PERSONA', 'MODULO DE GESTION DE PERSONA', 1, '2021-12-28 03:47:53', '2021-12-28 03:47:53'),
-(8, 'INICIO', 'PANEL DE INICIO', 1, '2022-03-01 03:27:10', '2022-03-01 03:27:10');
+(8, 'INICIO', 'PANEL DE INICIO', 1, '2022-03-01 03:27:10', '2022-03-01 03:27:10'),
+(9, 'PERMISOS', 'PERMISOS', 1, '2022-03-08 03:22:46', '2022-03-08 03:22:46');
 
 -- --------------------------------------------------------
 
@@ -299,8 +301,8 @@ CREATE TABLE IF NOT EXISTS `gps_modulo_rol` (
   `idModuloRol` int(11) NOT NULL AUTO_INCREMENT,
   `idModulo` int(11) NOT NULL,
   `idRol` int(11) NOT NULL,
-  `estado` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estado` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`idModuloRol`),
   KEY `idModulo` (`idModulo`),
@@ -340,12 +342,12 @@ CREATE TABLE IF NOT EXISTS `gps_pago` (
   `idTipoPago` int(10) NOT NULL,
   `observacion` text COLLATE utf8mb4_spanish2_ci NOT NULL,
   `archivo` text COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `estado` int(1) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estado` int(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idPago`),
   KEY `idContratoVehiculo` (`idContratoVehiculo`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `gps_pago`
@@ -427,7 +429,8 @@ INSERT INTO `gps_pago` (`idPago`, `idContratoVehiculo`, `fechaPago`, `montoPago`
 (73, 29, '2021-12-28', '30.00', '50.00', 1, '12', '', 1, '2021-12-29 03:19:59', NULL),
 (74, 27, '2022-01-15', '50.30', '35.00', 1, 'pago', '../../archivos/comprovantes/img_TRICOTA_corel_2020.png_61e2eb3c3d185_5065.png', 1, '2022-01-15 15:41:48', NULL),
 (75, 31, '2022-01-15', '50.00', '20.00', 1, 'observac', '../../archivos/comprovantes/img_VECTOR.png_61e31d306f2b1_6442.png', 1, '2022-01-15 19:14:56', NULL),
-(76, 18, '2021-12-07', '10.00', '35.00', 1, 'ASDASD', '../../archivos/comprovantes/img_cortesur.png_620db4d61e06b_2760.png', 1, '2022-02-17 02:37:10', NULL);
+(76, 18, '2021-12-07', '10.00', '35.00', 1, 'ASDASD', '../../archivos/comprovantes/img_cortesur.png_620db4d61e06b_2760.png', 1, '2022-02-17 02:37:10', NULL),
+(77, 18, '2022-04-02', '20.00', '35.00', 1, 'asd', '', 1, '2022-04-02 19:53:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -444,7 +447,7 @@ CREATE TABLE IF NOT EXISTS `gps_persona_natural` (
   `dni` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `direccion` varchar(255) COLLATE utf8mb4_spanish2_ci DEFAULT NULL,
   `correo` varchar(255) COLLATE utf8mb4_spanish2_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`idPersona`)
 ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
@@ -482,8 +485,8 @@ DROP TABLE IF EXISTS `gps_rol`;
 CREATE TABLE IF NOT EXISTS `gps_rol` (
   `idRol` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `estado` int(11) DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estado` int(11) DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`idRol`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
@@ -533,13 +536,13 @@ CREATE TABLE IF NOT EXISTS `gps_usuario` (
   `idRol` int(11) NOT NULL,
   `usuario` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `contrasena` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `estado` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estado` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`idUsuario`),
   KEY `idPersona` (`idPersona`),
   KEY `idRol` (`idRol`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `gps_usuario`
@@ -547,8 +550,9 @@ CREATE TABLE IF NOT EXISTS `gps_usuario` (
 
 INSERT INTO `gps_usuario` (`idUsuario`, `idPersona`, `idRol`, `usuario`, `contrasena`, `estado`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 'ADMIN', '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq', 1, '2022-02-17 05:12:25', '0000-00-00 00:00:00'),
-(2, 2, 2, 'ANLLY', '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq', 1, '2022-02-17 05:12:25', '0000-00-00 00:00:00'),
-(3, 3, 3, 'HBERRIOS', '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq', 1, '2022-03-01 04:19:51', '2022-03-01 04:19:51');
+(2, 2, 2, 'ANLLY', '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq', 1, '2022-03-06 01:49:56', '2022-03-06 01:49:56'),
+(3, 3, 3, 'HBERRIOS', '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq', 1, '2022-03-01 04:19:51', '2022-03-01 04:19:51'),
+(7, 4, 3, 'CCALLA', '$2y$10$gcPvStUTfe0RI5tksfJBbu0OE5Ier4tmXB85bjqnIwmNPXHUg4dFS', 1, '2022-03-06 01:55:41', '2022-03-06 01:55:41');
 
 -- --------------------------------------------------------
 
@@ -565,8 +569,8 @@ CREATE TABLE IF NOT EXISTS `gps_vehiculo` (
   `anio` int(11) DEFAULT NULL,
   `gps` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `imei` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `estado` int(11) DEFAULT 1,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estado` int(11) DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idVehiculo`),
   UNIQUE KEY `placa` (`placa`),
@@ -581,7 +585,7 @@ INSERT INTO `gps_vehiculo` (`idVehiculo`, `idMarcaVehiculo`, `placa`, `modelo`, 
 (1, 12, 'xxx-123', 'model 1', 2021, 'coban', '0001', 1, '2021-12-21 03:18:19', '2021-12-14 05:11:02'),
 (2, 15, 'xxx-125', 'model 2', 2021, 'coban', '0001', 1, '2021-11-03 03:46:12', '2021-11-03 03:46:12'),
 (3, 1, 'xxx-127', 'model 3', 2021, 'coban', '0001', 1, '2021-11-03 03:41:23', '2021-11-03 03:41:23'),
-(4, 14, 'aaa-123', 'MODEL 1', 1999, 'COBAN', '000021', 1, '2022-02-17 02:28:56', '2022-02-17 02:28:56'),
+(4, 14, 'aaa-123', 'MODEL 1', 1999, 'COBAN', '000021', 1, '2022-04-02 19:53:18', '2022-04-02 19:53:18'),
 (5, 25, 'XXX-156', 'modelo 33', 2021, 'coban 3030b', '000212121212', 1, '2021-12-13 02:02:06', NULL),
 (6, 28, 'xxx-265', 'model', 2021, 'coban', '0001511', 1, '2021-12-14 05:11:02', NULL),
 (7, 17, 'asd-123', 'model 1', 2021, 'coban', '000021', 1, '2021-12-21 05:10:53', '2021-12-21 05:10:53'),
