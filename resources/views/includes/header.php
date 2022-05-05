@@ -188,7 +188,7 @@
                                 </a>
                             </li> -->
                             <li>
-                                <a href="#!">
+                                <a href="/gps/">
                                     <i class="ti-layout-sidebar-left"></i> Logout
                                 </a>
                             </li>

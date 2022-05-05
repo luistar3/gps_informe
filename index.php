@@ -115,7 +115,7 @@ session_destroy();
     <script type="text/javascript" src="<?php $_SERVER["DOCUMENT_ROOT"]; ?>/gps/public/bower_components/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
     <script type="text/javascript" src="<?php $_SERVER["DOCUMENT_ROOT"]; ?>/gps/public/bower_components/jquery-i18next/jquery-i18next.min.js"></script>
     <!-- Custom js -->
-    <script type="text/javascript" src="<?php $_SERVER["DOCUMENT_ROOT"]; ?>/gps/public/assets/js/script.js"></script>
+ 
     <!--color js-->
     <script type="text/javascript" src="<?php $_SERVER["DOCUMENT_ROOT"]; ?>/gps/public/assets/js/common-pages.js"></script>
 </body>

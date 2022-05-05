@@ -1,4 +1,5 @@
 <?php
+require_once('../../App/Public/comprobarSession.php');
 require_once('../../App/Controllers/ContratoVehiculoController.php');
 $Header_allowedMethods = ['POST'];
 $Header_requestMethod  = strtoupper( $_SERVER['REQUEST_METHOD'] );

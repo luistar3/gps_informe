@@ -3,7 +3,9 @@
         <li class="more-details">
             <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
             <a href="#!"><i class="ti-settings"></i>Settings</a>
-            <a href="#!"><i class="ti-layout-sidebar-left"></i>Logout</a>
+           
+            <a href="/gps/"><i class="ti-layout-sidebar-left"></i>Logout</a>
+            
         </li>
         <?php if ($_SESSION['sesionNombreRol']!="CLIENTE"){ ?>
         <li class="nav-title" data-i18n="nav.category.navigation">

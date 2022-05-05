@@ -1,4 +1,4 @@
-<title>Flat Able - Premium Admin Template by Phoenixcoded</title>
+<title>Gpstel del Sur</title>
 <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -13,7 +13,7 @@
 <meta name="keywords" content=", Flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
 <meta name="author" content="Phoenixcoded">
 <!-- Favicon icon -->
-<link rel="icon" href="<?php $_SERVER['DOCUMENT_ROOT'];?>/gps/public/assets/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="http://www.gpsteldelsur.net/images/gpsteldelsur.png" type="image/x-icon">
 <!-- Google font-->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 <!-- Required Fremwork -->

@@ -1,3 +1,7 @@
+<?php 
+session_start();
+if (!isset($_SESSION['sesion']))  header('location: /gps/');
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

@@ -51,6 +51,8 @@ try
 	{
 		$cliente = $clsUsuarioController->fncObtenerAuth($input);
 
+		//var_dump($cliente);
+
 		if($cliente)
 		{
 			http_response_code(201);

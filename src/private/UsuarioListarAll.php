@@ -1,4 +1,5 @@
 <?php
+require_once('../../App/Public/comprobarSession.php');
 require_once('../../App/Controllers/UsuarioController.php');
 $Header_allowedMethods = ['GET'];
 $Header_requestMethod  = strtoupper( $_SERVER['REQUEST_METHOD'] );
