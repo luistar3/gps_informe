@@ -26,6 +26,64 @@ if (!function_exists("GetSQLValueString")) {
 	  return $theValue;
 	}
 }
+
+
+
+function send_email($request){
+	if ( !isset($request["subject"])) {
+		return "Definir Subject";
+	}
+	if( !isset($request["body"]) ){
+		return "Definir Body";
+	}
+	if ( !isset($request["cc"]) && !isset($request["bcc"]) ) {
+		return "Definir CC o BCC";
+	}
+
+	$mail = new PHPMailer(true);
+	$mail->IsSMTP();
+	$mail->isHTML(true);
+
+	$mail->CharSet      	= isset($request["CharSet"]) ? $request["CharSet"] : 'utf-8';
+	$mail->SMTPDebug    	= isset($request["SMTPDebug"]) ? $request["SMTPDebug"] : 1;
+	$mail->SMTPAuth     	= isset($request["SMTPAuth"]) ? $request["SMTPAuth"] : true;
+	$mail->Host         	= isset($request["Host"]) ? $request["Host"] : "smtp.gmail.com";
+	$mail->Port         	= isset($request["Port"]) ? $request["Port"] : 587;
+	$mail->SMTPSecure   	= isset($request["SMTPSecure"]) ? $request["SMTPSecure"] : "tls";
+	$mail->Username     	= isset($request["Username"]) ? $request["Username"] : "luistar3@gmail.com";
+	$mail->Password     	= isset($request["Password"]) ? $request["Password"] : 'luisanlly718kityvale';
+	$mail->FromName     	= isset($request["FromName"]) ? $request["FromName"] : 'Gestion Apuesta Total';
+	$mail->SMTPKeepAlive 	= true;
+
+	$mail->Subject  = $request["subject"];
+	$mail->Body     = $request["body"];
+
+	if(isset($request["cc"])){
+		foreach ($request["cc"] as $cc) {
+			$mail->AddAddress($cc);
+		}
+	}
+
+	if(isset($request["bcc"])){
+		foreach ($request["bcc"] as $bcc) {
+			$mail->AddBCC($bcc);
+		}
+	}
+
+	if(isset($request["attach"])){
+		if(is_array($request["attach"])){
+			for ($i=0; $i < count($request["attach"]) ; $i++) {
+				$mail->addAttachment($request["attach"][$i]);
+			}
+		}else{
+			$mail->addAttachment($request["attach"]);
+		}
+	}
+
+	$mail->Send();
+	return true;
+}
+
 //_Para codificar el texto malicioso
 function codificarTextoMalicioso($texto){
    $textoCodificado = $texto;
