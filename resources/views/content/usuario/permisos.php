@@ -33,6 +33,7 @@
                                 <i class="icofont icofont-close-circled"></i>
                             </div>
                         </div>
+                        <form id='idFormPermisosUsuario'>
                         <div class="card-block">
                             <div class="dt-responsive table-responsive">
                                 <div class="card-block">
@@ -62,11 +63,16 @@
 
 
 
-                                    <!-- <button id="button">Row count</button> -->
+                                   
+                                   <button type="button" class="btn btn-success" id="idBtnGuardarPermisos">Guardar</button>
+                                   
 
                                 </div>
                             </div>
                         </div>
+
+                        </form>
+                        
                     </div>
 
                 </div>

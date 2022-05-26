@@ -48,7 +48,7 @@ $(document).ready(function () {
 $(document).on('change', '.js-switch', function (e) {
     let test = e.target.checked;
     var valorId = e.target.attributes["data-idmodulo"].value;
-    console.log(e);
+   // console.log(e);
 });
 
 
@@ -129,3 +129,33 @@ function fncListarPermisosModulos() {
         }
     });
 }
+
+
+$('#idBtnGuardarPermisos').click(function (e) { 
+
+    //console.log('hola ');
+    var dataSelect = 0;
+    $('#idFormPermisosUsuario select').each(
+        function(index){  
+            var input = $(this).val();
+            dataSelect=input;
+        }
+    );
+    var dataChecked = [];
+    $('#idFormPermisosUsuario input').each(
+
+        function(index){  
+            var modulos = {
+                moduloId:$(this).attr("data-idmodulo"),
+                varlorCheck :$(this).prop("checked")
+            }
+            
+            dataChecked.push(modulos);
+        }
+    );
+    var data = {
+        idRol:dataSelect,
+        checked:dataChecked
+    }
+    console.log(data);
+});
