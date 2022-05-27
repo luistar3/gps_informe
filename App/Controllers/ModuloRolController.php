@@ -77,6 +77,29 @@ class ModuloRolController extends ModuloRol
 		return $dtReturn;
 	}
 
+	public function fncModificarModuloRol($input){
+		$dtReturn= array();
+		$idRol= (int)$input->idRol;
+		$modulos = $input->modulos;
+		$businessModuloRol = new BusinessModuloRol();
+		$moduloRol = new ModuloRol();
+		foreach ($modulos as $key => $modulo) {			
+			if ($modulo->varlorCheck =='true' && (int)$modulo->idModulo>0) {
+				$asda = [];
+				$moduloRol->idModulo = (int)$modulo->idModulo;
+				$moduloRol->idRol = (int)$idRol;
+				$moduloRol->estado = 1;
+				$businessModuloRol->fncModificarModuloRolBD($moduloRol);
+			}else{
+				$moduloRol->idModulo = (int)$modulo->idModulo;
+				$moduloRol->idRol = (int)$idRol;
+				$moduloRol->estado = 0;
+				$businessModuloRol->fncModificarModuloRolBD($moduloRol);
+			}
+		}
+
+	}
+
 
 }
 ?>

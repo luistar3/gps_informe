@@ -57,6 +57,58 @@ class BusinessModuloRol extends ModuloRol
 		}
 	}
 
+	public function fncListarPorIdRolIdModuloBD(ModuloRol $moduloRol)
+	{
+		$connection = new connection();
+		$connectionstatus = $connection->openConnection();
+		if ($connectionstatus) {
+			$sql = "
+			SELECT
+				gmr.idModuloRol,
+				gmr.idModulo,
+				gmr.idRol,
+				gmr.estado,
+				gmr.created_at,
+				gmr.updated_at		
+			FROM
+				gps_modulo_rol AS gmr
+						
+			WHERE gmr.idModulo = :idModulo AND gmr.idRol = :idRol";
+		
+		//$connectionstatus->prepare($sql);
+		//$arrayReturn = array();
+		$statement = $connectionstatus->prepare($sql);
+		$arrayReturn = array();
+			//$result = mysqli_query($connectionstatus, $sql);
+			if ($statement != false){
+				$statement->bindParam('idModulo', $id);
+				$statement->bindParam('idRol', $id);
+				//var_dump($statement);
+				$statement->execute();
+				while ($datos = $datos = $statement->fetch(PDO::FETCH_ASSOC)) {
+					$temp = new ModuloRol;
+					$temp->idModuloRol	= $datos['idModuloRol'];
+					$temp->idModulo		= $datos["idModulo"];
+					$temp->idRol		= $datos["idRol"];
+					$temp->estado		= $datos["estado"];					
+					$temp->createdAt	= $datos["created_at"];	
+					$temp->updatedAt	= $datos["updated_at"];	
+					array_push($arrayReturn, $temp);
+					unset($temp);
+				}
+				return $arrayReturn;
+				$connection->closeConnection($connectionstatus);
+			} else {
+
+				return false;
+			}
+		} else {
+			unset($connectionstatus);
+			unset($connection);
+			return ('Tenemos un problema' . (mysqli_error($connectionstatus)));
+		}
+	}
+
 	public function fncListarRegistrosPermisosMenuBD($id = -1)
 	{
 		$connection = new connection();
@@ -161,6 +213,38 @@ class BusinessModuloRol extends ModuloRol
 			unset($connection);
 			return ('Tenemos un problema' . (mysqli_error($connectionstatus)));
 		}
+	}
+
+	public function fncModificarModuloRolBD(ModuloRol $moduloRol)
+	{
+		$connection = new connection();
+		$connectionstatus = $connection->openConnection();
+		$bolReturn = false;
+		if ($connectionstatus) {
+			$sql = ' 
+			UPDATE gps_modulo_rol
+			SET								
+				estado = :estado,
+				updated_at = now()				
+			WHERE idRol = 	:idRol and idModulo = :idModulo
+					
+		';
+			$statement = $connectionstatus->prepare($sql);
+
+			if ($statement != false) {
+				$statement->bindParam("idRol", $moduloRol->idrol);
+				$statement->bindParam("idModulo", $moduloRol->idModulo);
+				$statement->bindParam("estado", $moduloRol->estado);
+				$statement->execute();
+				$connection->closeConnection($connectionstatus);
+				$error = ($statement->errorInfo());
+				$rowCount = ($statement->rowCount());
+				if (($statement->rowCount()) != 0) {
+					return $moduloRol;
+				}
+			}
+		}
+		return $bolReturn;
 	}
 
 }

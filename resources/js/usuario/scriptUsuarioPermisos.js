@@ -146,7 +146,7 @@ $('#idBtnGuardarPermisos').click(function (e) {
 
         function(index){  
             var modulos = {
-                moduloId:$(this).attr("data-idmodulo"),
+                idModulo:$(this).attr("data-idmodulo"),
                 varlorCheck :$(this).prop("checked")
             }
             
@@ -155,7 +155,15 @@ $('#idBtnGuardarPermisos').click(function (e) {
     );
     var data = {
         idRol:dataSelect,
-        checked:dataChecked
+        modulos:dataChecked
     }
-    console.log(data);
+
+    $.ajax({
+        type: "POST",
+        url: "/gps/src/private/PermisosGuardar.php",
+        data: data,
+        success: function (response) {
+            
+        }
+    });
 });
