@@ -95,6 +95,96 @@ class BusinessContrato extends Contrato
 		}
 	}
 
+	public function fncListarRegistrosAllBD()
+	{
+		$connection = new connection();
+		$connectionstatus = $connection->openConnection();
+		$sqlEstado = "";
+		if ($estadoContrato !== '') {
+			$sqlEstado = 'gc.estado = ' . $estadoContrato . ' AND ';
+		}
+		$sqlFechas = 'gc.fechaInicio >= \'' . $contratoDesde . '\' AND gc.fechaInicio<=\'' . $contratoHasta . '\'';
+		if ($connectionstatus) {
+
+			$sql = '			
+			SELECT
+				gc.idContrato,
+				gc.idCliente,
+				(SELECT cli.cliente FROM( 
+							select case 
+								when p.idPersona is not null then CONCAT(p.nombres,\' \',p.apellidos,\' (\',p.dni,\')\') 
+								else CONCAT(j.razonSocial,\' (\',j.ruc,\')\') 
+							end as cliente,
+							c.idCliente
+							from gps_cliente c
+							left join gps_persona_natural p
+								on p.idPersona = c.idPersona
+							left join (select j.idJuridico,
+												j.razonSocial,
+												j.ruc,
+												j.correo AS correoEmpresa,
+												j.idRepresentanteLegal as idRepresentanteLegal,
+												p.telefono as numeroRepresentanteLegal,
+												p.dni as dniRepresentanteLegal,                    
+												p.direccion as direccionRepresentanteLegal
+										from gps_juridico j
+										join gps_persona_natural p
+											on j.idRepresentanteLegal = p.idPersona) j
+								on j.idJuridico = c.idJuridico ) AS cli WHERE cli.idCliente = gc.idCliente)AS nombre,
+				gc.fechaInicio,
+				gc.fechaFin,
+				gc.mensualidad,
+				gc.contrato,
+				gc.estado,
+				gc.created_at,
+				gc.updated_at,				
+				(	
+				SELECT
+					case 
+						when gcc.idPersona is not null then \'natural\' 
+						else \'juridica\' 
+					end as cliente		
+				FROM
+					gps_cliente AS gcc WHERE gcc.idCliente = gc.idCliente) AS tipoCliente
+			FROM
+				gps_contrato AS gc
+				WHERE 
+				' . $sqlEstado . '
+				' . $sqlFechas;
+			$statement = $connectionstatus->prepare($sql);
+			$arrayReturn = array();
+			//$result = mysqli_query($connectionstatus, $sql);
+
+			if ($statement != false) {
+				$statement->execute();
+				while ($datos = $datos = $statement->fetch(PDO::FETCH_ASSOC)) {
+					$temp = new Contrato;
+					$temp->idContrato		= $datos['idContrato'];
+					$temp->idCliente	= $datos["idCliente"];
+					$temp->nombre	= $datos["nombre"];
+					$temp->fechaInicio		= $datos["fechaInicio"];
+					$temp->fechaFin		= $datos["fechaFin"];
+					$temp->mensualidad			= $datos["mensualidad"];
+					$temp->contrato	= $datos["contrato"];
+					$temp->estado		= $datos["estado"];
+					$temp->createdAt	= $datos["created_at"];
+					$temp->updatedAt	= $datos["updated_at"];
+					$temp->tipoCliente	= $datos["tipoCliente"];
+					array_push($arrayReturn, $temp);
+					unset($temp);
+				}
+				return $arrayReturn;
+				$connection->closeConnection($connectionstatus);
+			} else {
+				return false;
+			}
+		} else {
+			unset($connectionstatus);
+			unset($connection);
+			return ('Tenemos un problema' . (mysqli_error($connectionstatus)));
+		}
+	}
+
 
 	public function fncObtenerRegistroBD($idContrato)
 	{

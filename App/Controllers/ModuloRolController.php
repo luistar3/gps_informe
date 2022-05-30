@@ -91,6 +91,7 @@ class ModuloRolController extends ModuloRol
 					$moduloRol->estado = 1;
 					$businessModuloRol->fncModificarModuloRolBD($moduloRol);
 				}else{					
+					$moduloRol->estado = 1;
 					$businessModuloRol->fncGuardarBD($moduloRol);
 				}
 				

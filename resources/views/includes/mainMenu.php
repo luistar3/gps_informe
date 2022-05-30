@@ -70,6 +70,23 @@
             </li>
         <?php } ?>
 
+        <?php if (in_array("CALENDARIO_PAGOS", $menuModulosPermisos)) { ?>
+            <?php $menu = array('GESTION_CALENDARIO_PAGOS', 'REPORTE_CALENDARIO_PAGOS', ''); ?>
+            <li class="nav-item <?php if (in_array($menuActivo, $menu)) {
+                                    echo ('has-class');
+                                } ?> ">
+                <a href="#!">
+                    <i class="ti-id-badge"></i>
+                    <span data-i18n="nav.dash.main">CALENDARIO y PAGOS</span>
+                </a>
+                <ul class="tree-1 <?php if (in_array($menuActivo, $menu)) echo ('has-class'); ?>">
+                    <li class=" <?php if ($menuActivo == 'GESTION_CALENDARIO_PAGOS') echo ('has-class'); ?>">
+                        <a href="/gps/src/private/views/cliente/clienteView.php" data-i18n="nav.dash.default"> Gestion de PAGOS S./</a>
+                    </li>                  
+                </ul>
+            </li>
+        <?php } ?>
+
         <?php if (in_array("CLIENTE", $menuModulosPermisos)) { ?>
             <?php $menu = array('GESTIONCLIENTE', 'REPORTECLIENTE', ''); ?>
             <li class="nav-item <?php if (in_array($menuActivo, $menu)) {
