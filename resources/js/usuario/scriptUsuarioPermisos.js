@@ -28,7 +28,10 @@ $(document).ready(function () {
                 var idmodulos = new Array();
                 $.each(jsonData.data, function (indexInArray, valueOfElement) {
                     var idModulo = '#' + 'moduloId' + valueOfElement.idModulo;
-                    idmodulos.push(idModulo);
+                    if (valueOfElement.estado==1) {
+                        idmodulos.push(idModulo);
+                    }
+                    
                 });
                 $.each(switcheryGlobal, function (indexInArray, element) { 
                     var idmodulo= '#'+element.element.id;
@@ -162,8 +165,19 @@ $('#idBtnGuardarPermisos').click(function (e) {
         type: "POST",
         url: "/gps/src/private/PermisosGuardar.php",
         data: data,
+        beforeSend: function() {
+            maskOn(document.getElementsByClassName("main-body"), { color: '#48c9b059', hourglass: true, zIndex: 3 });
+        },
         success: function (response) {
-            
+            var jsonData = JSON.parse(response);
+            if (jsonData.error == false) {
+                swal("Guardado", jsonData.mensaje, "success"); 
+            } else {
+                swal("Error", jsonData.mensaje, "error");
+            }
+        },
+        complete: function() {
+            maskOff(document.getElementsByClassName("main-body"));
         }
     });
 });

@@ -85,11 +85,15 @@ class ModuloRolController extends ModuloRol
 		$moduloRol = new ModuloRol();
 		foreach ($modulos as $key => $modulo) {			
 			if ($modulo->varlorCheck =='true' && (int)$modulo->idModulo>0) {
-				$asda = [];
 				$moduloRol->idModulo = (int)$modulo->idModulo;
-				$moduloRol->idRol = (int)$idRol;
-				$moduloRol->estado = 1;
-				$businessModuloRol->fncModificarModuloRolBD($moduloRol);
+				$moduloRol->idRol = (int)$idRol;				
+				if ($businessModuloRol->fncObtenerPorIdRolIdModuloBD($moduloRol)) {
+					$moduloRol->estado = 1;
+					$businessModuloRol->fncModificarModuloRolBD($moduloRol);
+				}else{					
+					$businessModuloRol->fncGuardarBD($moduloRol);
+				}
+				
 			}else{
 				$moduloRol->idModulo = (int)$modulo->idModulo;
 				$moduloRol->idRol = (int)$idRol;
@@ -97,7 +101,8 @@ class ModuloRolController extends ModuloRol
 				$businessModuloRol->fncModificarModuloRolBD($moduloRol);
 			}
 		}
-
+		$dtReturn = $this->fncListarRegistros();
+		return $dtReturn;
 	}
 
 

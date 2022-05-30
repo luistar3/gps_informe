@@ -44,53 +44,26 @@ if (
 // }
 
 http_response_code(500);
+
+
+
 try {
-		$moduloRol = $ClsModuloRolController->fncModificarModuloRol($input);
-
-	if (!isset($input->idUsuario)) {
-
-		//$usuarioPersonaExiste = $ClsUsuarioController->fncListarRegistrosPorIdPersona($input->idPersona);
-		//$usuarioExiste = $ClsUsuarioController->fncListarRegistrosPorNombreUsuario($input->usuario);
-		if ($ClsUsuarioController->fncListarRegistrosPorIdPersona($input->idPersona)) {
-			http_response_code(428);
-			$arrayReturn["mensaje"]	= "Ya existe Usuario para la persona seleccionada";
-			$arrayReturn["error"]	= true;
-		}else if($ClsUsuarioController->fncListarRegistrosPorNombreUsuario($input->usuario)){
-			http_response_code(428);
-			$arrayReturn["mensaje"]	= "El nombre del usuario ya existe";
-			$arrayReturn["error"]	= true;
-		} else {
-			$usuario = $ClsUsuarioController->fncGuardar($input);
-			if ($usuario) {
-				http_response_code(201);
-				$arrayReturn["mensaje"]	= "Datos guardados con éxito";
-				$arrayReturn["error"]	= false;
-				$arrayReturn["data"]	= $usuario;
-			} else {
-				http_response_code(500);
-				$arrayReturn["mensaje"]	= "Error al guardar los datos";
-				$arrayReturn["error"]	= true;
-			}
-		}
-	} else if (isset($input->idUsuario)) {
-
-		$usuario = $ClsUsuarioController->fncActualizar($input);
-
-		if ($usuario) {
-			http_response_code(200);
-			$arrayReturn["mensaje"] = "Datos actualizados con éxito";
-			$arrayReturn["error"]	= false;
-			$arrayReturn["data"]	= $usuario;
-		} else {
-			http_response_code(422);
-			$arrayReturn["mensaje"] = "No existe registro";
-			$arrayReturn["error"]	= true;
-		}
+	$dtListarRegistros = $ClsModuloRolController->fncModificarModuloRol($input);
+	if ($dtListarRegistros) {
+		$arrayReturn['mensaje'] = 'Registros listados con éxito';
+		$arrayReturn['data'] = $dtListarRegistros;
+		$arrayReturn['error']   = false;
+		http_response_code(200);
+	} else {
+		$arrayReturn['mensaje'] = $e->getMessage();
+		$arrayReturn['error']   = true;
+		http_response_code(400);
 	}
-} catch (\throwable  $e) {
-	http_response_code(500);
-	$arrayReturn["mensaje"]	= $e->getMessage();
-	$arrayReturn["error"]	= true;
+} catch (Exception $e) {
+	$arrayReturn['mensaje'] = $e->getMessage();
+	$arrayReturn['error']   = true;
+	http_response_code(400);
 }
 
+http_response_code();
 echo json_encode($arrayReturn, JSON_UNESCAPED_UNICODE);
