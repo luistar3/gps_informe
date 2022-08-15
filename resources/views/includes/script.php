@@ -74,3 +74,4 @@
 
  <script type="text/javascript" src="<?php $_SERVER['DOCUMENT_ROOT'];?>/gps/public/assets/js/modalEffects.js"></script>
  <script type="text/javascript" src="<?php $_SERVER['DOCUMENT_ROOT'];?>/gps/public/assets/js/classie.js"></script>
+ <script type="text/javascript" src="<?php $_SERVER['DOCUMENT_ROOT'];?>/gps/public/bower_components/Holdon/HoldOn.min.js"></script>

@@ -10,7 +10,9 @@ $(document).ready(function() {
     //add id to main menu for mobile menu end
 
     //loader start
-    $('.theme-loader').fadeOut(1000);
+    //$('.theme-loader').fadeOut(1000);
+    HoldOn.open();
+    HoldOn.close();
     //loader end
 
     setMenu();

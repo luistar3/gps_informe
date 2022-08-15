@@ -26,7 +26,7 @@ $(document).ready(function () {
 
 console.log(idContrato);
 function fncSetDateInputFilter() {
-    var formatoFecha = moment().subtract(1, 'month').format('YYYY-MM-DD');
+    var formatoFecha = moment().subtract(2, 'YEAR').format('YYYY-MM-DD');
     $('#idContratoVehiculoFechaInicio').val(formatoFecha);
     $('#idInputFechaPago').val(moment().format('YYYY-MM-DD'));
 
@@ -112,10 +112,11 @@ $("#idContratoVehiculoPagosBuscar").click(function (e) {
     // $('#idListadoPagoVehiculo').DataTable().ajax.reload();
     //fncListarPagoVehiculo(); 
 
-
+    HoldOn.open();
 
 
     fncRenderizarDataTable();
+    HoldOn.close();
 });
 
 function fncRenderizarDataTable() {
@@ -125,11 +126,17 @@ function fncRenderizarDataTable() {
     table.destroy();
     var table = $('#idListadoPagoVehiculo').DataTable({
         'destroy': true,
-
+        "processing": true,
         "ajax": {
             type: "GET",
             "url": "/gps/src/private/PagoVehiculoListar.php",
-            "data": fncListarPagoVehiculo()
+            "data": fncListarPagoVehiculo(),
+            beforeSend: function () {
+                HoldOn.open();
+              },
+              complete: function () {
+                HoldOn.close();
+              }
         },
         "dataSrc": function (json) {
             var result = JSON.parse(json);
@@ -321,11 +328,21 @@ function fncEliminarPagoCliente(data) {
                         var jsonData = JSON.parse(response);
                         if (jsonData.error == false) {
                             swal("Registrado", jsonData.mensaje, "success");
+                            fncRenderizarDataTable();
+                            fncListarPagosAnios();
                             
-                        }
-                        fncRenderizarDataTable();
-                        fncListarPagosAnios();
-                    }
+                        }                       
+                        
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        var jsonData = JSON.parse(XMLHttpRequest.responseText);
+                        swal("Error", jsonData.mensaje, "error");
+                    },beforeSend: function () {
+                        HoldOn.open();
+                      },
+                      complete: function () {
+                        HoldOn.close();
+                      }
                 });
 
             } else {
@@ -412,7 +429,12 @@ function fncEditarPagoCliente(data) {
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         var jsonData = JSON.parse(XMLHttpRequest.responseText);
                         swal("Error", jsonData.mensaje, "error");
-                    }
+                    },beforeSend: function () {
+                        HoldOn.open();
+                      },
+                      complete: function () {
+                        HoldOn.close();
+                      }
                 });
 
             } else {

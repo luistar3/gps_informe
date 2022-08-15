@@ -2,7 +2,7 @@ $(document).ready(function () {
     var tablaListadoContratos = document.getElementById("idListadoContratos");
     function setDateFilters() {
         $('#idContratoFechaInicioHasta').val(moment().format('YYYY-MM-DD'));
-        $('#idContratoFechaInicioDesde').val(moment().subtract(1, 'YEAR').format('YYYY-MM-DD'));   
+        $('#idContratoFechaInicioDesde').val(moment().subtract(5, 'YEAR').format('YYYY-MM-DD'));   
         
         var desde  = $("#idContratoFechaInicioHasta").val();
         var hasta  = $("#idContratoFechaInicioDesde").val();
@@ -38,6 +38,7 @@ function fncGetDataFilter() {
 }
 function fncRenderDatatableListadoContrato(data) {
 
+    
     var table = $('#idListadoContratos').DataTable();
     table.clear();
     table.destroy();
@@ -47,11 +48,19 @@ function fncRenderDatatableListadoContrato(data) {
         "ajax": {
             type: "GET",
             "url": "/gps/src/private/ContratoListar.php",
-            "data": fncGetDataFilter()
+            "data": fncGetDataFilter(),
+            beforeSend: function () {
+                HoldOn.open();
+              },
+              complete: function () {
+                HoldOn.close();
+              }
         },        
         "dataSrc": function (json) {
             var result = JSON.parse(json);
+           
             return result.data;
+            
         },
         "pageLength": 10,
         "processing": true, // Si se muestra el estado de procesamiento (al ordenar, una gran cantidad de datos lleva mucho tiempo, esto también se mostrará)
@@ -179,6 +188,7 @@ function fncRenderDatatableListadoContrato(data) {
 
 
     });
+    
 
 }
 

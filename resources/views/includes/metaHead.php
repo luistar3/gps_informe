@@ -82,3 +82,6 @@
 <link rel="stylesheet" type="text/css" href="<?php $_SERVER['DOCUMENT_ROOT'];?>/gps/public/assets/pages/menu-search/css/component.css">
 <!-- Style.css -->
 <link rel="stylesheet" type="text/css" href="<?php $_SERVER['DOCUMENT_ROOT'];?>/gps/public/assets/css/style.css">
+
+<!-- Style.css -->
+<link rel="stylesheet" type="text/css" href="<?php $_SERVER['DOCUMENT_ROOT'];?>/gps/public/bower_components/Holdon/HoldOn.min.css">

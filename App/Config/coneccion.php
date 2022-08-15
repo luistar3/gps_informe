@@ -16,7 +16,7 @@ class connection
 	function __construct()
 	{
 		$this->server = '192.185.94.10';
-		$this->database = 'gpstelde_gpstel';
+		$this->database = 'gpstelde_dev';
 		$this->userid = 'gpstelde_root';
 		$this->passwd = 'clave*2020';
 	}

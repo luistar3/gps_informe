@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once($_SERVER['DOCUMENT_ROOT'] . '/gps/vendor/autoload.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/gps/App/Models/Pago.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/gps/App/Business/BusinessPago.php');
@@ -141,6 +141,12 @@ class PagoController extends Pago
 		// 	return false;
 		// }
 		return $dtReturn;
+	}
+	public function fncEditarSoloUsuarioRol1($inputs)
+	{
+		 $rol = $_SESSION['sesionNombreRol'];
+		 $dtReturn = ($rol=='ADMIN') ? TRUE : FALSE ;
+		 return $dtReturn;
 	}
 	public function fncEliminar($inputs)
 	{

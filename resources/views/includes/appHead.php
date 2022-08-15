@@ -9,7 +9,7 @@ if (!isset($_SESSION['sesion']))  header('location: /gps/');
 </head>
 <body class="menu-static">
     <!-- Pre-loader start -->
-    <div class="theme-loader">
+    <div >
         <div class="ball-scale">
             <div></div>
         </div>

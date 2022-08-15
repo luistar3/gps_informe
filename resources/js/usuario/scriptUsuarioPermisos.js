@@ -41,7 +41,12 @@ $(document).ready(function () {
                     setSwitchery(element, false);
                    }
                    });
-            }
+            },beforeSend: function () {
+                HoldOn.open();
+              },
+              complete: function () {
+                HoldOn.close();
+              }
         });
     });
 
@@ -105,7 +110,7 @@ function fncListarPermisosModulos() {
         url: "/gps/src/private/ModuloListar.php",
         data: "data",
         success: function (response) {
-
+            
             var jsonData = JSON.parse(response);
 
             for (let index = 0; index < jsonData.data.length; index++) {
@@ -126,10 +131,15 @@ function fncListarPermisosModulos() {
                 
                 switcheryGlobal.push(switchery);
             });
+            
 
 
-
-        }
+        },beforeSend: function () {
+            HoldOn.open();
+          },
+          complete: function () {
+            HoldOn.close();
+          }
     });
 }
 
@@ -137,6 +147,7 @@ function fncListarPermisosModulos() {
 $('#idBtnGuardarPermisos').click(function (e) { 
 
     //console.log('hola ');
+   
     var dataSelect = 0;
     $('#idFormPermisosUsuario select').each(
         function(index){  
@@ -144,6 +155,10 @@ $('#idBtnGuardarPermisos').click(function (e) {
             dataSelect=input;
         }
     );
+    if (dataSelect ==0) {
+        swal("Selecciones un Rol", '', "warning"); 
+        return false;
+    }
     var dataChecked = [];
     $('#idFormPermisosUsuario input').each(
 
@@ -165,9 +180,6 @@ $('#idBtnGuardarPermisos').click(function (e) {
         type: "POST",
         url: "/gps/src/private/PermisosGuardar.php",
         data: data,
-        beforeSend: function() {
-            maskOn(document.getElementsByClassName("main-body"), { color: '#48c9b059', hourglass: true, zIndex: 3 });
-        },
         success: function (response) {
             var jsonData = JSON.parse(response);
             if (jsonData.error == false) {
@@ -175,9 +187,12 @@ $('#idBtnGuardarPermisos').click(function (e) {
             } else {
                 swal("Error", jsonData.mensaje, "error");
             }
-        },
-        complete: function() {
-            maskOff(document.getElementsByClassName("main-body"));
-        }
+        },beforeSend: function () {
+            HoldOn.open();
+          },
+          complete: function () {
+            HoldOn.close();
+          }
+        
     });
 });

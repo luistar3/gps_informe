@@ -40,7 +40,13 @@ try
 {
 	if ((Int)$input->idPago!=0)
 	{
-		$pago = $pagoController->fncEliminar($input);
+		$usuarioValidoEdicion = $pagoController->fncEditarSoloUsuarioRol1($input);
+		if (!$usuarioValidoEdicion) {
+			http_response_code(401);
+			$arrayReturn["mensaje"] = "No tiene permiso para esta operacion";
+			$arrayReturn["error"]	= true;
+		} else {
+			$pago = $pagoController->fncEliminar($input);
 
 		if($pago)
 		{
@@ -55,6 +61,8 @@ try
 			$arrayReturn["mensaje"] = "No existe registro";
 			$arrayReturn["error"]	= true;
 		}
+		}
+		
 	}
 }
 catch (Exception $e)
