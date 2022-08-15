@@ -15,10 +15,10 @@ class connection
 
 	function __construct()
 	{
-		$this->server = 'localhost';
-		$this->database = 'gpstel';
-		$this->userid = 'root';
-		$this->passwd = '';
+		$this->server = '192.185.94.10';
+		$this->database = 'gpstelde_gpstel';
+		$this->userid = 'gpstelde_root';
+		$this->passwd = 'clave*2020';
 	}
 
 
@@ -38,7 +38,9 @@ class connection
 			
 		$opciones = array(
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
-            PDO::MYSQL_ATTR_FOUND_ROWS => true
+            PDO::MYSQL_ATTR_FOUND_ROWS => true,
+			PDO::MYSQL_ATTR_SSL_CA => '/path/to/ssl-cert.pem',
+			PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false
         );
  
         $status = new PDO(

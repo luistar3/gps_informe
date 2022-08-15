@@ -83,6 +83,7 @@ class BusinessContratoVehiculo extends ContratoVehiculo
 				$statement->bindParam('idVehiculo', $contratoVehiculo->idVehiculo);
 
 				$statement->execute();
+				$error = ($statement->errorInfo());
 				if ($registro = $statement->fetch(PDO::FETCH_ASSOC)) {
 					$contratoVehiculo->idContratoVehiculo = $registro["idContratoVehiculo"];
 					$contratoVehiculo->montoPago = $registro["montoPago"];
@@ -115,7 +116,7 @@ class BusinessContratoVehiculo extends ContratoVehiculo
 			FROM
 				gps_contrato_vehiculo AS gcv
 				INNER JOIN gps_vehiculo AS gvs
-						ON gv.idVehiculo = gcv.idVehiculo		          
+						ON gvs.idVehiculo = gcv.idVehiculo		          
 			WHERE gv.estado = 1 AND gvs.placa = gv.placa AND gcv.idContrato NOT IN ( :idContrato )
 
 				)AS otrosContratos,
@@ -350,6 +351,7 @@ class BusinessContratoVehiculo extends ContratoVehiculo
 				$statement->bindParam("fechaInstalacion", $contratoVehiculo->fechaInstalacion);
 				$statement->bindParam("fechaTermino", $contratoVehiculo->fechaTermino);
 				$statement->execute();
+				$error = ($statement->errorInfo());
 				$connection->closeConnection($connectionstatus);
 				$id = $connectionstatus->lastInsertId();
 				if ($id==0) {

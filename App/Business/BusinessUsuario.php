@@ -344,28 +344,40 @@ class BusinessUsuario extends Usuario
 
 			$sql = '
 			SELECT 
-			gpn.nombres,
-			gpn.apellidos,
-			gpn.telefono,
-			gpn.dni,
-			gpn.direccion,
-			gpn.correo,
-			gu.idUsuario,
-			gu.estado AS estadoUsuario,
-			gu.idPersona,
-			gu.usuario,
-			gr.nombre as nombreRol,
-			gm.idModulo,
-			concat(\'[\',GROUP_CONCAT(CONCAT(\'{"\',gm.idModulo,\'":"\', IFNULL(gm.modulo,0), \'"}\')),\']\') as accesoModulos
+				gpn.nombres,
+				gpn.apellidos,
+				gpn.telefono,
+				gpn.dni,
+				gpn.direccion,
+				gpn.correo,
+				gu.idUsuario,
+				gu.estado AS estadoUsuario,
+				gu.idPersona,
+				gu.usuario,
+				gr.nombre as nombreRol,
+				gm.idModulo,
+				concat(\'[\',GROUP_CONCAT(CONCAT(\'{"\',gm.idModulo,\'":"\', IFNULL(gm.modulo,0), \'"}\')),\']\') as accesoModulos
 			FROM gps_usuario AS gu 
 			INNER JOIN gps_rol AS gr ON gr.idRol = gu.idRol
 			LEFT JOIN gps_modulo_rol AS gmr ON gmr.idRol = gr.idRol
 			INNER JOIN gps_modulo AS gm ON gm.idModulo = gmr.idModulo
 			LEFT JOIN gps_persona_natural AS gpn ON gpn.idPersona = gu.idPersona
-			WHERE gu.usuario = :usuario';
+			WHERE gu.usuario = :usuario
+			GROUP BY
+				gpn.nombres,
+				gpn.apellidos,
+				gpn.telefono,
+				gpn.dni,
+				gpn.direccion,
+				gpn.correo,
+				gu.idUsuario,
+				gu.estado,
+				gu.idPersona,
+				gu.usuario,
+				gr.nombre,
+				gm.idModulo';
 
 			$statement = $connectionstatus->prepare($sql);
-
 			$usuario = new stdClass;
 			if ($statement != false) {
 				$statement->bindParam('usuario', $user);

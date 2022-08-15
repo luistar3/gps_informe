@@ -243,12 +243,20 @@ class BusinessCliente extends Cliente
 		if ($connectionstatus) {
 			$sql = '
 			SELECT * FROM( 
-				select case when p.idPersona is not null then \'PERSONA\' else \'JURIDICO\' end as tipoCliente,
-				c.ultimoPago,
-				c.idCliente,
-					   c.estado,
-					   p.*,
-					   j.*
+						select case when p.idPersona is not null then \'PERSONA\' else \'JURIDICO\' end as tipoCliente,
+						c.ultimoPago,
+						c.idCliente,
+					   	c.estado,
+					   	p.nombres,
+						p.apellidos,
+						p.telefono,
+						p.dni,
+						p.direccion,
+						p.correo,
+					   	j.razonSocial,
+						j.ruc,
+						j.correoEmpresa,
+						j.idRepresentanteLegal
 				  from gps_cliente c
 				  left join gps_persona_natural p
 					on p.idPersona = c.idPersona
@@ -278,6 +286,7 @@ class BusinessCliente extends Cliente
 				//$statement->bindParam('parametro', $parametro);
 				//var_dump($statement);
 				$statement->execute();
+				$error = ($statement->errorInfo());
 				while ($datos = $datos = $statement->fetch(PDO::FETCH_ASSOC)) {
 
 					//var_dump($datos);
