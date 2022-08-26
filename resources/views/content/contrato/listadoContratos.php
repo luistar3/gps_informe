@@ -2,7 +2,7 @@
     <div class="page-wrapper">
         <div class="page-header">
             <div class="page-header-title">
-                <h4>Dashboard</h4>
+                <h4>Contratos</h4>
             </div>
             <div class="page-header-breadcrumb">
                 <ul class="breadcrumb-title">
@@ -13,7 +13,7 @@
                     </li>
                     <li class="breadcrumb-item"><a href="#!">Pages</a>
                     </li>
-                    <li class="breadcrumb-item"><a href="#!">Dashboard</a>
+                    <li class="breadcrumb-item"><a href="#!">Listado de Contratos</a>
                     </li>
                 </ul>
             </div>
@@ -25,13 +25,7 @@
                     <!-- Basic Form Inputs card start -->
                     <div class="card">
                         <div class="card-header">
-                            <h5>Basic Form Inputs</h5>
-                            <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>
-                            <div class="card-header-right">
-                                <i class="icofont icofont-rounded-down"></i>
-                                <i class="icofont icofont-refresh"></i>
-                                <i class="icofont icofont-close-circled"></i>
-                            </div>
+                            <span>Gestionar<code>contratos</code> 
                         </div>
                         <div class="card-block">
                             <div class="dt-responsive table-responsive">

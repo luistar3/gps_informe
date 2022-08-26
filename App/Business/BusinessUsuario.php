@@ -412,6 +412,52 @@ class BusinessUsuario extends Usuario
 		}
 	}
 
+	public function fncValidarPermisoVistaBD($idUsario)
+	{
+		$connection = new connection();
+		$connectionstatus = $connection->openConnection();
+		if ($connectionstatus) {
+
+			$sql = '
+			SELECT 			
+				gm.modulo
+			FROM   gps_usuario                    AS gu
+				INNER JOIN gps_rol             AS gr
+						ON  gr.idRol = gu.idRol
+				LEFT JOIN gps_modulo_rol       AS gmr
+						ON  gmr.idRol = gr.idRol
+				INNER JOIN gps_modulo          AS gm
+						ON  gm.idModulo = gmr.idModulo
+				LEFT JOIN gps_persona_natural  AS gpn
+						ON  gpn.idPersona = gu.idPersona
+			WHERE  gu.idUsuario = :idUsuario AND	gmr.estado=1
+			';
+
+			$statement = $connectionstatus->prepare($sql);			
+			if ($statement != false) {
+				$statement->bindParam('idUsuario', $idUsario);
+				$statement->execute();
+				$error = ($statement->errorInfo());
+				$arrayReturn = array();
+				while ($datos = $datos = $statement->fetch(PDO::FETCH_ASSOC)) {
+					$temp = new Usuario;
+					$temp->modulo	= $datos['modulo'];
+					array_push($arrayReturn, $temp);
+					unset($temp);
+				}
+				return $arrayReturn;
+			} else {
+
+				return false;
+			}
+		} else {
+			unset($connectionstatus);
+			unset($connection);
+			return false;
+		}
+	}
+
+
 	public function fncGuardarBD(Usuario $usuario)
 	{
 		$connection = new connection();

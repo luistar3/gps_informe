@@ -145,7 +145,7 @@
                 </ul>
             </li>
         <?php } ?>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="#!">
                 <i class="ti-layout-cta-right"></i>
                 <span data-i18n="nav.navigate.main">Navigation</span>
@@ -156,7 +156,7 @@
                 <li><a href="navbar-dark.html" data-i18n="nav.navigate.navbar-inverse">Navbar Inverse</a></li>
                 <li><a href="navbar-elements.html" data-i18n="nav.navigate.navbar-with-elements">Navbar With Elements</a></li>
             </ul>
-        </li>
+        </li> -->
         <?php } else{?>
         <li class="nav-title" data-i18n="nav.category.ui-element">
             <i class="ti-line-dashed"></i>

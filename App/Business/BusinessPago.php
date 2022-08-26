@@ -73,7 +73,7 @@ class BusinessPago extends Pago
 			gp.estado = 1 AND
 			' . $sqlTipoPago . '
 			' . $contratoIdVehiculo . '
-			( str_to_date( gp.fechaPago,\'%Y-%m-%d\') >= \'' . $fechaInicio . '\' AND str_to_date( gp.fechaPago,\'%Y-%m-%d\') <= \'' . $fechaFin . '\')
+			( gp.fechaPago >= \'' . $fechaInicio . '\' AND gp.fechaPago < \'' . $fechaFin . '\')
 		ORDER BY gp.fechaPago DESC
 			';
 

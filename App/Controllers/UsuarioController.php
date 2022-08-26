@@ -43,10 +43,12 @@ class UsuarioController extends Usuario
 		if ($_SESSION['sesionNombreRol'] != "CLIENTE") {
 			$menuActivo		= 'PANEL_ADMIN';
 			include('../../../../resources/views/includes/appHead.php');
+		
 			include('../../../../resources/views/content/panel/index.php');
 		} else {
 			$menuActivo		= 'PANEL_CLIENTE';
 			include('../../../../resources/views/includes/appHead.php');
+			
 			include('../../../../resources/views/content/panel/cliente.php');
 		}
 		include('../../../../resources/views/includes/appFooter.php');
@@ -163,6 +165,20 @@ class UsuarioController extends Usuario
 		}
 		return $dtReturn;
 	}
+	public function fncValidarPermisoVista($view){
+		$usuario = new BusinessUsuario();
+		$dtUsuario = $usuario->fncValidarPermisoVistaBD($_SESSION['sesionIdUsuario']);
+		$permisos = array();
+		if ($dtUsuario) {
+			foreach ($dtUsuario as $key => $value) {
+				$permisos[]=$value->modulo;
+			}
+		}
+		if(in_array($view,$permisos)){
+			return true;
+		}
+		return false;
+	}
 
 	public function fncObtenerAuth($input)
 	{
@@ -189,7 +205,9 @@ class UsuarioController extends Usuario
 					$_SESSION['sesionUsuario'] = $usuarioAccesos->usuario;
 					$_SESSION['sesionNombreRol'] = $usuarioAccesos->nombreRol;
 					$_SESSION['sesionIdModulo'] = $usuarioAccesos->idModulo;
+					$_SESSION['sesionPermisoModulo'] = $usuarioAccesos->idModulo;
 					$permisos = json_decode(($usuarioAccesos->accesoModulos), true);
+					$_SESSION['sesionPermisoModulo'] =$permisos;
 					$modulos = array();
 					foreach ($permisos as $key => $value) {
 						$modulos[key($value)] = array_shift($value);

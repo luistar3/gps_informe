@@ -8,19 +8,7 @@
 
             <input type="checkbox" id="idContratoVehiculoNombreContratoCheckbox" checked />
             <input type="text" name="" id="idTextPlacaVehiculo" readonly>
-            <div class="page-header-breadcrumb">
-                <ul class="breadcrumb-title">
-                    <li class="breadcrumb-item">
-                        <a href="index.html">
-                            <i class="icofont icofont-home"></i>
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item"><a href="#!">Social</a>
-                    </li>
-                    <li class="breadcrumb-item"><a href="#!">Fb Wall</a>
-                    </li>
-                </ul>
-            </div>
+
         </div>
         <!-- Page header end -->
         <!-- Page body start -->
@@ -31,7 +19,7 @@
                     <div class="row">
 
                         <div class="col-md-12">
-                            <div class="card-block">
+                            <div class="card-block  bg-white">
                                 <div class="row m-b-20">
 
 
@@ -55,8 +43,12 @@
 
                                     </div>
 
-                                    <div class="col-sm-12 col-xl-4">
+                                    <div class="col-sm-12 col-xl-3">
                                         <button class=" btn btn-inverse btn-round" id="idContratoVehiculoPagosBuscar">Filtrar Registros</button>
+
+                                    </div>
+                                    <div class="col-sm-12 col-xl-2">
+
                                         <button class="btn btn-success btn-outline-success waves-effect md-trigger btn-round" id="idModalNuevoPagoVehiculo" data-modal="idModalNuevoPago">Nuevo Pago</button>
                                     </div>
 
@@ -124,13 +116,13 @@
                     <div class="fb-timeliner" id="idDivMesesActual">
                         <h2 id="idTitleAnioActual" class="recent-highlight bg-danger"></h2>
                         <ul id="idUlMesesActual">
-                        
+
                         </ul>
                     </div>
                     <div class="fb-timeliner" id="idDivMesesPasado">
                         <h2 id="idTitleAnioPasado"></h2>
                         <ul id="idUlMesesPasado">
-                           
+
                         </ul>
                     </div>
                 </div>
@@ -202,7 +194,7 @@
                 <br>
 
                 <div class="row">
-                
+
                     <button type="submit" id="idBtnGuardarNuevoPago" class="btn btn-primary waves-effect">Guardar</button>
                     <button type="submit" id="idBtnEditarPago" class="btn btn-secondary waves-effect d-none">Editar</button>
                     <button type="button" class="btn btn-warning waves-effect md-close btn-cerrar-modal">Cerrar</button>

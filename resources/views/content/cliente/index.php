@@ -24,15 +24,7 @@
                 <div class="col-sm-12">
                     <!-- Basic Form Inputs card start -->
                     <div class="card">
-                        <div class="card-header">
-                            <h5>Clientes</h5>
-                            <span>Módulo de gestion de <code>CLIENTES</code> Agregar - Actualizar</span>
-                            <div class="card-header-right">
-                                <i class="icofont icofont-rounded-down"></i>
-                                <i class="icofont icofont-refresh"></i>
-                                <i class="icofont icofont-close-circled"></i>
-                            </div>
-                        </div>
+                        
                         <div class="card-block">
                             <div class="dt-responsive table-responsive">
                                 <div class="card-block">
